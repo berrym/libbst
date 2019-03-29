@@ -56,11 +56,15 @@ bst_node *bst_remove_int_node(bst_node *root, void *data)
     } else {
         if (!root->left) {
             bst_node *temp = root->right;
+            free(root->data);
+            root->data = NULL;
             free(root);
             root = NULL;
             return temp;
         } else if (!root->right) {
             bst_node *temp = root->left;
+            free(root->data);
+            root->data = NULL;
             free(root);
             root = NULL;
             return temp;
@@ -83,6 +87,8 @@ void bst_delete_int_tree(bst_node *root)
     bst_delete_int_tree(root->left);
     bst_delete_int_tree(root->right);
     printf("\nDeleting node: %d", CastIntPrint root->data);
+    free(root->data);
+    root->data = NULL;
     free(root);
     root = NULL;
 }
@@ -99,7 +105,7 @@ void bst_traverse_inorder(bst_node *node)
 
 void bst_traverse_postorder(bst_node *node)
 {
-    if (node == NULL)
+    if (!node)
         return;
 
     bst_traverse_postorder(node->left);
