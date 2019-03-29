@@ -24,5 +24,9 @@ int main(int argc, char **argv)
     printf("\n");
     fflush(stdout);
 
+    bst_delete_int_tree(root);
+    printf("\n");
+    fflush(stdout);
+
     exit(EXIT_SUCCESS);
 }
