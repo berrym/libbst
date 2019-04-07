@@ -43,6 +43,16 @@ bst_node *bst_min_value(bst_node *node)
     return curr;
 }
 
+bst_node *bst_max_value(bst_node *node)
+{
+    bst_node *curr = node;
+
+    while (curr->right)
+        curr = curr->right;
+
+    return curr;
+}
+
 bst_node *bst_remove_int_node(bst_node *root, void *data)
 {
     // Base case
