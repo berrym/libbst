@@ -24,6 +24,7 @@ typedef struct bst_node {
 bst_node *bst_new_node(size_t, void *);
 bst_node *bst_int_insert(bst_node *, size_t, void *);
 bst_node *bst_min_value(bst_node *);
+bst_node *bst_max_value(bst_node *);
 bst_node *bst_remove_int_node(bst_node *, void *);
 void bst_delete_int_tree(bst_node *);
 void bst_traverse_inorder(bst_node *);
