@@ -27,9 +27,9 @@ bst_node *bst_min_value(bst_node *);
 bst_node *bst_max_value(bst_node *);
 bst_node *bst_remove_int_node(bst_node *, void *);
 void bst_delete_int_tree(bst_node *);
-void bst_traverse_inorder(bst_node *);
-void bst_traverse_postorder(bst_node *);
-void bst_traverse_preorder(bst_node *);
+void bst_int_traverse_inorder(bst_node *);
+void bst_int_traverse_postorder(bst_node *);
+void bst_int_traverse_preorder(bst_node *);
 
 result compare_int(const void *, const void *);
 

@@ -17,11 +17,11 @@ int main(void)
     }
 
     printf("\ninorder traversal:\n");
-    bst_traverse_inorder(root);
+    bst_int_traverse_inorder(root);
     printf("\n\npostorder traversal:\n");
-    bst_traverse_postorder(root);
+    bst_int_traverse_postorder(root);
     printf("\n\npreorder traversal:\n");
-    bst_traverse_preorder(root);
+    bst_int_traverse_preorder(root);
     printf("\n");
     fflush(stdout);
 
