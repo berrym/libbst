@@ -5,6 +5,10 @@
 #include "bst.h"
 #include "errors.h"
 
+/**
+ * bst_new_node:
+ *      Allocate a new bst_node on the heap and return it.
+ */
 bst_node *bst_new_node(size_t size, void *data)
 {
     bst_node *node = calloc(1, sizeof(bst_node));
