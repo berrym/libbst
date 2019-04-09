@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include "bst.h"
 
-int main(int argc, char **argv)
+int main(void)
 {
     size_t size = sizeof(int);
     size_t limit = 7;
     size_t i;
-    long int initial_tree_values[] = { 50, 30, 20, 40, 70, 60, 80 };
+    intptr_t initial_tree_values[] = { 50, 30, 20, 40, 70, 60, 80 };
     bst_node *root = NULL;
 
     for (i = 0; i < limit; i++) {
