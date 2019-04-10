@@ -1,8 +1,8 @@
 #ifndef BST_H
 #define BST_H
 
-#include <stddef.h>
-#include <stdbool.h>
+#include <stddef.h>             // for size_t
+#include <stdbool.h>            // for bool type
 
 #define CastInt (int *)
 #define CastIntPrintf *(int *)
