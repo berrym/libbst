@@ -5,7 +5,7 @@
 #include <stdbool.h>
 
 #define CastInt (int *)
-#define CastIntPrint *(int *)
+#define CastIntPrintf *(int *)
 
 typedef enum result {
     LESS = -1,

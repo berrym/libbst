@@ -137,7 +137,7 @@ void bst_delete_int_tree(bst_node *root)
 
     bst_delete_int_tree(root->left);
     bst_delete_int_tree(root->right);
-    printf("\nDeleting node: %d", CastIntPrint root->data);
+    printf("\nDeleting node: %d", CastIntPrintf root->data);
     free(root->data);
     root->data = NULL;
     free(root);
@@ -154,7 +154,7 @@ void bst_int_traverse_inorder(bst_node *node)
         return;
 
     bst_int_traverse_inorder(node->left);
-    printf("%d ", CastIntPrint node->data);
+    printf("%d ", CastIntPrintf node->data);
     bst_int_traverse_inorder(node->right);
 }
 
@@ -169,7 +169,7 @@ void bst_int_traverse_postorder(bst_node *node)
 
     bst_int_traverse_postorder(node->left);
     bst_int_traverse_postorder(node->right);
-    printf("%d ", CastIntPrint node->data);
+    printf("%d ", CastIntPrintf node->data);
 }
 
 /**
@@ -181,7 +181,7 @@ void bst_int_traverse_preorder(bst_node * node)
     if (!node)
         return;
 
-    printf("%d ", CastIntPrint node->data);
+    printf("%d ", CastIntPrintf node->data);
     bst_int_traverse_preorder(node->left);
     bst_int_traverse_preorder(node->right);
 }
