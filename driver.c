@@ -3,7 +3,17 @@
 #include <stdint.h>
 #include "bst.h"
 
-int main(void)
+void int_bst_test();
+void str_bst_test();
+
+int main()
+{
+    int_bst_test();
+    str_bst_test();
+    exit(EXIT_SUCCESS);
+}
+
+void int_bst_test()
 {
     size_t size = sizeof(int);
     size_t limit = 7;
@@ -13,21 +23,54 @@ int main(void)
 
     for (i = 0; i < limit; i++) {
         printf("Inserting into tree value: %ld\n", initial_tree_values[i]);
-        root = bst_int_insert(root, size, CastInt initial_tree_values[i]);
+        root = bst_insert(root, size, (int *)initial_tree_values[i],
+                          compare_int);
     }
 
     printf("\ninorder traversal:\n");
-    bst_int_traverse_inorder(root);
+    bst_traverse_inorder(root, print_int);
     printf("\n\npostorder traversal:\n");
-    bst_int_traverse_postorder(root);
+    bst_traverse_postorder(root, print_int);
     printf("\n\npreorder traversal:\n");
-    bst_int_traverse_preorder(root);
-    printf("\n");
+    bst_traverse_preorder(root, print_int);
+    printf("\n\n");
     fflush(stdout);
 
-    bst_delete_int_tree(root);
-    printf("\n");
+    bst_delete_tree(root, NULL, print_rm_int);
+    printf("\n\n");
+    fflush(stdout);
+}
+
+void str_bst_test()
+{
+    size_t size = sizeof(char *);
+    size_t limit = 7;
+    size_t i;
+    const char *initial_tree_values[] = { "e",
+                                          "c",
+                                          "b",
+                                          "d",
+                                          "g",
+                                          "f",
+                                          "h" };
+    bst_node *root = NULL;
+
+    for (i = 0; i < limit; i++) {
+        printf("Inserting into tree value: %s\n", initial_tree_values[i]);
+        root = bst_insert(root, size, (char *)initial_tree_values[i],
+                          compare_str);
+    }
+
+    printf("\ninorder traversal:\n");
+    bst_traverse_inorder(root, print_str);
+    printf("\n\npostorder traversal:\n");
+    bst_traverse_postorder(root, print_str);
+    printf("\n\npreorder traversal:\n");
+    bst_traverse_preorder(root, print_str);
+    printf("\n\n");
     fflush(stdout);
 
-    exit(EXIT_SUCCESS);
+    bst_delete_tree(root, NULL, print_rm_str);
+    printf("\n");
+    fflush(stdout);
 }

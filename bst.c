@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
 #include "bst.h"
 #include "errors.h"
 
@@ -20,28 +19,6 @@ bst_node *bst_new_node(size_t size, void *data)
 
     memcpy(node->data, &data, size);
     node->left = node->right = NULL;
-
-    return node;
-}
-
-/**
- * bst_int_insert:
- *      Insert an integer value into a bst_node.
- *
- *      1) If the tree is empty return a new node.
- *      2) Otherwise recur down the tree until an empty node is found
- *      and insert the new node there.
- *      3) Return unchanged node.
- */
-bst_node *bst_int_insert(bst_node *node, size_t size, void *data)
-{
-    if (!node)
-        return bst_new_node(size, data);
-
-    if (compare_int(&data, node->data) <= EQUAL)
-        node->left = bst_int_insert(node->left, size, data); 
-    else
-        node->right = bst_int_insert(node->right, size, data);
 
     return node;
 }
@@ -77,7 +54,29 @@ bst_node *bst_max_value(bst_node *node)
 }
 
 /**
- * bst_remove_int_node:
+ * bst_insert:
+ *      Insert a bst_node with a data value into a bst.
+ *
+ *      1) If the tree is empty return a new node.
+ *      2) Otherwise recur down the tree until an empty node is found
+ *         and insert the new node there.
+ *      3) Return unchanged node.
+ */
+bst_node *bst_insert(bst_node *node, size_t size, void *data, comparator cmp)
+{
+    if (!node)
+        return bst_new_node(size, data);
+
+    if (cmp(&data, node->data) == LESS)
+        node->left = bst_insert(node->left, size, data, cmp);
+    else if (cmp(&data, node->data) == GREATER)
+        node->right = bst_insert(node->right, size, data, cmp);
+
+    return node;
+}
+
+/**
+ * bst_remove_node:
  *      Given a bst and a data value, remove the node containing data
  *      and return the new root.
  *
@@ -91,18 +90,21 @@ bst_node *bst_max_value(bst_node *node)
  *             the case of a node with zero or one children, or
  *             by handling the case where the node has two children.
  */
-bst_node *bst_remove_int_node(bst_node *root, void *data)
+bst_node *bst_remove_node(bst_node *root, void *data,
+                          comparator cmp, free_func freefn)
 {
     if (!root)
         return root;
 
-    if (compare_int(&data, root->data) == LESS) {
-        root->left = bst_remove_int_node(root->left, data);
-    } else if (compare_int(&data, root->data) == GREATER) {
-        root->right = bst_remove_int_node(root->right,data);
+    if (cmp(&data, root->data) == LESS) {
+        root->left = bst_remove_node(root->left, data, cmp, freefn);
+    } else if (cmp(&data, root->data) == GREATER) {
+        root->right = bst_remove_node(root->right, data, cmp, freefn);
     } else {
         if (!root->left) {
             bst_node *temp = root->right;
+            if (freefn)
+                freefn(root->data);
             free(root->data);
             root->data = NULL;
             free(root);
@@ -110,6 +112,8 @@ bst_node *bst_remove_int_node(bst_node *root, void *data)
             return temp;
         } else if (!root->right) {
             bst_node *temp = root->left;
+            if (freefn)
+                freefn(root->data);
             free(root->data);
             root->data = NULL;
             free(root);
@@ -120,24 +124,26 @@ bst_node *bst_remove_int_node(bst_node *root, void *data)
         bst_node *temp = bst_min_value(root->right);
         root->data = temp->data;
 
-        root->right = bst_remove_int_node(root->right, temp->data);
+        root->right = bst_remove_node(root->right, temp->data, cmp, freefn);
     }
 
     return root;
 }
 
 /**
- * bst_delete_int_tree:
+ * bst_delete_tree:
  *      Delete an entire bst by using postorder traversal.
  */
-void bst_delete_int_tree(bst_node *root)
+void bst_delete_tree(bst_node *root, free_func freefn, display_func display)
 {
     if (!root)
         return;
 
-    bst_delete_int_tree(root->left);
-    bst_delete_int_tree(root->right);
-    printf("\nDeleting node: %d", CastIntPrintf root->data);
+    bst_delete_tree(root->left, freefn, display);
+    bst_delete_tree(root->right, freefn, display);
+    display(root->data);
+    if (freefn)
+        freefn(root->data);
     free(root->data);
     root->data = NULL;
     free(root);
@@ -145,45 +151,45 @@ void bst_delete_int_tree(bst_node *root)
 }
 
 /**
- * bst_int_traverse_inorder:
+ * bst_traverse_inorder:
  *      Traverse a bst inorder and print out the data in each node.
  */
-void bst_int_traverse_inorder(bst_node *node)
+void bst_traverse_inorder(bst_node *node, display_func display)
 {
     if (!node)
         return;
 
-    bst_int_traverse_inorder(node->left);
-    printf("%d ", CastIntPrintf node->data);
-    bst_int_traverse_inorder(node->right);
+    bst_traverse_inorder(node->left, display);
+    display(node->data);
+    bst_traverse_inorder(node->right, display);
 }
 
 /**
- * bst_int_traverse_postorder:
+ * bst_traverse_postorder:
  *      Traverse a bst postorder and print out the data in each node.
  */
-void bst_int_traverse_postorder(bst_node *node)
+void bst_traverse_postorder(bst_node *node, display_func display)
 {
     if (!node)
         return;
 
-    bst_int_traverse_postorder(node->left);
-    bst_int_traverse_postorder(node->right);
-    printf("%d ", CastIntPrintf node->data);
+    bst_traverse_postorder(node->left, display);
+    bst_traverse_postorder(node->right, display);
+    display(node->data);
 }
 
 /**
- * bst_int_traverse_preorder:
+ * bst_traverse_preorder:
  *      Traverse a bst preorder and print out the data in each node.
  */
-void bst_int_traverse_preorder(bst_node * node)
+void bst_traverse_preorder(bst_node * node, display_func display)
 {
     if (!node)
         return;
 
-    printf("%d ", CastIntPrintf node->data);
-    bst_int_traverse_preorder(node->left);
-    bst_int_traverse_preorder(node->right);
+    display(node->data);
+    bst_traverse_preorder(node->left, display);
+    bst_traverse_preorder(node->right, display);
 }
 
 /**
@@ -196,4 +202,55 @@ result compare_int(const void *a, const void *b)
     const int ia = *(const int *)a;
     const int ib = *(const int *)b;
     return (ia > ib) - (ia < ib);
+}
+
+/**
+ * Display function to print out an int.
+ */
+void print_int(void *data)
+{
+    printf("%d ", *(int *)data);
+}
+
+/**
+ * print_rm_int:
+ *      Display function to inform when removing an int value from a bst.
+ */
+void print_rm_int(void *data)
+{
+    printf("Removing value: %d\n", *(int *)data);
+}
+
+/**
+ * compare_str:
+ *      Compare two strings for equality.
+ *      Result is LESS for a < b, EQUAL for a == b, GREATER for a > b
+ */
+result compare_str(const void *a, const void *b)
+{
+    const char *ca = *(const char **)a;
+    const char *cb = *(const char **)b;
+
+    if (strcmp(ca, cb) < 0) return LESS;
+    else if (strcmp(ca, cb) > 0) return GREATER;
+
+    return EQUAL;
+}
+
+/**
+ * print_str:
+ *      Display function to print a string.
+ */
+void print_str(void *data)
+{
+    printf("%s ", *(char **)data);
+}
+
+/**
+ * print_rm_str:
+ *      Display function to inform when removing a string value from a bst.
+ */
+void print_rm_str(void *data)
+{
+    printf("Removing value: %s\n", *(char **)data);
 }
