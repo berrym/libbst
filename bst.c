@@ -24,36 +24,6 @@ bst_node *bst_new_node(size_t size, void *data)
 }
 
 /**
- * bst_min_value:
- *      Given a non-empty tree traverse down the left hand side of the
- *      tree and return the node with the minimum data value.
- */
-bst_node *bst_min_value(bst_node *node)
-{
-    bst_node *curr = node;
-
-    while (curr->left)
-        curr = curr->left;
-
-    return curr;
-}
-
-/**
- * bst_max_value:
- *      Given a non-empty tree traverse down the right hand side of the
- *      tree and return the node with the maximum data value.
- */
-bst_node *bst_max_value(bst_node *node)
-{
-    bst_node *curr = node;
-
-    while (curr->right)
-        curr = curr->right;
-
-    return curr;
-}
-
-/**
  * bst_insert:
  *      Insert a bst_node with a data value into a bst.
  *
@@ -131,6 +101,21 @@ bst_node *bst_remove_node(bst_node *root, void *data,
 }
 
 /**
+ * bst_search:
+ *      Serach a bst for a node containing a give value.
+ */
+bst_node* bst_search(bst_node *root, void *data, comparator cmp)
+{
+    if (!root || cmp(&data, root->data) == EQUAL)
+       return root;
+
+    if (cmp(&data, root->data) == LESS)
+        return bst_search(root->left, data, cmp);
+
+    return bst_search(root->right, data, cmp);
+}
+
+/**
  * bst_delete_tree:
  *      Delete an entire bst by using postorder traversal.
  */
@@ -148,6 +133,36 @@ void bst_delete_tree(bst_node *root, free_func freefn, display_func display)
     root->data = NULL;
     free(root);
     root = NULL;
+}
+
+/**
+ * bst_min_value:
+ *      Given a non-empty tree traverse down the left hand side of the
+ *      tree and return the node with the minimum data value.
+ */
+bst_node *bst_min_value(bst_node *node)
+{
+    bst_node *curr = node;
+
+    while (curr->left)
+        curr = curr->left;
+
+    return curr;
+}
+
+/**
+ * bst_max_value:
+ *      Given a non-empty tree traverse down the right hand side of the
+ *      tree and return the node with the maximum data value.
+ */
+bst_node *bst_max_value(bst_node *node)
+{
+    bst_node *curr = node;
+
+    while (curr->right)
+        curr = curr->right;
+
+    return curr;
 }
 
 /**

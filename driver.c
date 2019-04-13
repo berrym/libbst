@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <signal.h>
 #include "bst.h"
+#include "errors.h"
 
 void int_bst_test();
 void str_bst_test();
 
 int main()
 {
+    signal(SIGSEGV, sig_seg);
     int_bst_test();
     str_bst_test();
     exit(EXIT_SUCCESS);
@@ -35,6 +38,13 @@ void int_bst_test()
     bst_traverse_preorder(root, print_int);
     printf("\n\n");
     fflush(stdout);
+
+    printf("Searching for value 50: ");
+    bst_node *temp = bst_search(root, (int *)50, compare_int);
+    if (temp)
+        printf("Found.\n\n");
+    else
+        printf("Not Found\n\n");
 
     bst_delete_tree(root, NULL, print_rm_int);
     printf("\n\n");
