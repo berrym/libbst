@@ -122,6 +122,18 @@ bst_node* bst_lookup(bst_node *root, void *data, comparator cmp)
 }
 
 /**
+ * bst_size:
+ *      Count the number of nodes in a tree.
+ */
+size_t bst_size(bst_node *root)
+{
+    if (!root)
+        return 0;
+
+    return(bst_size(root->left) + 1 + bst_size(root->right));
+}
+
+/**
  * bst_max_depth:
  *      Calculate the number of nodes along the longest path from the
  *      root node down to the farthest leaf node.
