@@ -102,7 +102,7 @@ bst_node *bst_remove_node(bst_node *root, void *data,
 }
 
 /**
- * bst_locate:
+ * bst_lookup:
  *      Serach a bst for a node containing a give value.
  *
  *      Cases:
@@ -110,15 +110,15 @@ bst_node *bst_remove_node(bst_node *root, void *data,
  *          2) Root node is equal to data, return root.
  *          3) Recur down correct subtree.
  */
-bst_node* bst_locate(bst_node *root, void *data, comparator cmp)
+bst_node* bst_lookup(bst_node *root, void *data, comparator cmp)
 {
     if (!root || cmp(&data, root->data) == EQUAL)
        return root;
 
     if (cmp(&data, root->data) == LESS)
-        return bst_locate(root->left, data, cmp);
+        return bst_lookup(root->left, data, cmp);
 
-    return bst_locate(root->right, data, cmp);
+    return bst_lookup(root->right, data, cmp);
 }
 
 /**
