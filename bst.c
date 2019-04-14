@@ -121,6 +121,11 @@ bst_node* bst_lookup(bst_node *root, void *data, comparator cmp)
     return bst_lookup(root->right, data, cmp);
 }
 
+/**
+ * bst_max_depth:
+ *      Calculate the number of nodes along the longest path from the
+ *      root node down to the farthest leaf node.
+ */
 size_t bst_max_depth(bst_node *root)
 {
     if (!root)
