@@ -27,10 +27,11 @@ bst_node *bst_new_node(size_t size, void *data)
  * bst_insert:
  *      Insert a bst_node with a data value into a bst.
  *
- *      1) If the tree is empty return a new node.
- *      2) Otherwise recur down the tree until an empty node is found
- *         and insert the new node there.
- *      3) Return unchanged node.
+ *      Cases:
+ *          1) If the tree is empty return a new node.
+ *          2) Otherwise recur down the tree until an empty node is found
+ *             and insert the new node there.
+ *          3) Return unchanged node.
  */
 bst_node *bst_insert(bst_node *node, size_t size, void *data, comparator cmp)
 {
@@ -101,18 +102,23 @@ bst_node *bst_remove_node(bst_node *root, void *data,
 }
 
 /**
- * bst_search:
+ * bst_locate:
  *      Serach a bst for a node containing a give value.
+ *
+ *      Cases:
+ *          1) Empty tree, return root.
+ *          2) Root node is equal to data, return root.
+ *          3) Recur down correct subtree.
  */
-bst_node* bst_search(bst_node *root, void *data, comparator cmp)
+bst_node* bst_locate(bst_node *root, void *data, comparator cmp)
 {
     if (!root || cmp(&data, root->data) == EQUAL)
        return root;
 
     if (cmp(&data, root->data) == LESS)
-        return bst_search(root->left, data, cmp);
+        return bst_locate(root->left, data, cmp);
 
-    return bst_search(root->right, data, cmp);
+    return bst_locate(root->right, data, cmp);
 }
 
 /**
@@ -126,7 +132,8 @@ void bst_delete_tree(bst_node *root, free_func freefn, display_func display)
 
     bst_delete_tree(root->left, freefn, display);
     bst_delete_tree(root->right, freefn, display);
-    display(root->data);
+    if (display)
+        display(root->data);
     if (freefn)
         freefn(root->data);
     free(root->data);

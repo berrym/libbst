@@ -40,7 +40,7 @@ void int_bst_test()
     fflush(stdout);
 
     printf("Searching for value 50: ");
-    bst_node *temp = bst_search(root, (int *)50, compare_int);
+    bst_node *temp = bst_locate(root, (int *)50, compare_int);
     if (temp)
         printf("Found.\n\n");
     else
