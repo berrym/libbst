@@ -32,6 +32,7 @@ bst_node *bst_new_node(size_t, void *);
 bst_node *bst_insert(bst_node *, size_t, void *, comparator);
 bst_node *bst_remove_node(bst_node *, void *, comparator, free_func);
 bst_node* bst_lookup(bst_node *, void *, comparator);
+size_t bst_max_depth(bst_node *);
 void bst_delete_tree(bst_node *, free_func, display_func);
 bst_node *bst_min_value(bst_node *);
 bst_node *bst_max_value(bst_node *);

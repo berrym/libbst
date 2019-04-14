@@ -46,6 +46,11 @@ void int_bst_test()
     else
         printf("Not Found\n\n");
 
+    size_t max_depth = bst_max_depth(root);
+    printf("Maximum depth of tree is %zu\n\n", max_depth);
+    fflush(stdout);
+
+    printf("Deleting tree\n");
     bst_delete_tree(root, NULL, print_rm_int);
     printf("\n\n");
     fflush(stdout);

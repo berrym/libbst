@@ -121,6 +121,20 @@ bst_node* bst_lookup(bst_node *root, void *data, comparator cmp)
     return bst_lookup(root->right, data, cmp);
 }
 
+size_t bst_max_depth(bst_node *root)
+{
+    if (!root)
+        return 0;
+
+    size_t l_depth = bst_max_depth(root->left);
+    size_t r_depth = bst_max_depth(root->right);
+
+    if (l_depth > r_depth)
+        return l_depth + 1;
+
+    return r_depth + 1;
+}
+
 /**
  * bst_delete_tree:
  *      Delete an entire bst by using postorder traversal.
