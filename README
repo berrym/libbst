@@ -1,0 +1,7 @@
+A simple library for binary search trees written in C.
+A demo program is provided to show library use.
+
+BUILDING
+
+meson build
+ninja -C build
