@@ -37,6 +37,7 @@ size_t bst_max_depth(bst_node *);
 void bst_delete_tree(bst_node *, free_func, display_func);
 bst_node *bst_min_value(bst_node *);
 bst_node *bst_max_value(bst_node *);
+bool bst_is_bst(bst_node *, comparator);
 void bst_traverse_inorder(bst_node *, display_func);
 void bst_traverse_postorder(bst_node *, display_func);
 void bst_traverse_preorder(bst_node *, display_func);

@@ -204,6 +204,30 @@ bst_node *bst_max_value(bst_node *node)
 }
 
 /**
+ * bst_is_bst:
+ *      Check that a binary tree is a bst by recursively checking
+ *      the left and right constraints of each node.
+ */
+bool bst_is_bst(bst_node *root, comparator cmp)
+{
+    if (!root)
+        return true;
+
+    if (root->left &&
+        cmp(bst_max_value(root->left)->data, root->data) == GREATER)
+        return false;
+
+    if (root->right &&
+        (cmp(bst_min_value(root->right)->data, root->data) <= EQUAL))
+        return false;
+
+    if (!bst_is_bst(root->left, cmp) || !bst_is_bst(root->right, cmp))
+        return false;
+
+    return true;
+}
+
+/**
  * bst_traverse_inorder:
  *      Traverse a bst inorder and print out the data in each node.
  */

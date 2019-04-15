@@ -30,6 +30,12 @@ void int_bst_test()
                           compare_int);
     }
 
+    printf("\nChecking if tree is a bst: ");
+    if (bst_is_bst(root, compare_int))
+        printf("Yes.\n");
+    else
+        printf("No.\n");
+
     printf("\ninorder traversal:\n");
     bst_traverse_inorder(root, print_int);
     printf("\n\npostorder traversal:\n");
