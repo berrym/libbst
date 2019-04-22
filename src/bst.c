@@ -121,7 +121,7 @@ bst_node *bst_remove_node(bst_node *root, void *data,
             return temp;
         }
 
-        bst_node *temp = bst_min_value(root->right);
+        bst_node *temp = bst_min_value_node(root->right);
         root->data = temp->data;
 
         root->right = bst_remove_node(root->right, temp->data, cmp, freefn);
@@ -203,13 +203,13 @@ void bst_delete_tree(bst_node *root, free_func freefn, display_func display)
 }
 
 /**
- * bst_min_value:
+ * bst_min_value_node:
  *      Given a non-empty tree traverse down the left hand side of the
  *      tree and return the node with the minimum data value.
  */
-bst_node *bst_min_value(bst_node *node)
+bst_node *bst_min_value_node(bst_node *root)
 {
-    bst_node *curr = node;
+    bst_node *curr = root;
 
     while (curr->left)
         curr = curr->left;
@@ -218,13 +218,13 @@ bst_node *bst_min_value(bst_node *node)
 }
 
 /**
- * bst_max_value:
+ * bst_max_value_node:
  *      Given a non-empty tree traverse down the right hand side of the
  *      tree and return the node with the maximum data value.
  */
-bst_node *bst_max_value(bst_node *node)
+bst_node *bst_max_value_node(bst_node *root)
 {
-    bst_node *curr = node;
+    bst_node *curr = root;
 
     while (curr->right)
         curr = curr->right;
@@ -243,11 +243,11 @@ bool bst_is_bst(bst_node *root, comparator cmp)
         return true;
 
     if (root->left &&
-        cmp(bst_max_value(root->left)->data, root->data) == GREATER)
+        cmp(bst_max_value_node(root->left)->data, root->data) == GREATER)
         return false;
 
     if (root->right &&
-        (cmp(bst_min_value(root->right)->data, root->data) <= EQUAL))
+        (cmp(bst_min_value_node(root->right)->data, root->data) <= EQUAL))
         return false;
 
     if (!bst_is_bst(root->left, cmp) || !bst_is_bst(root->right, cmp))

@@ -1,6 +1,6 @@
 project('libbst', 'c',
         version : '0.1.0',
-        license : 'BSD 2-Clause')
+        license : 'BSD2CLAUSE')
 
 inc = include_directories('include')
 
