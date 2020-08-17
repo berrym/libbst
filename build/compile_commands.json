@@ -1,0 +1,26 @@
+[
+  {
+    "directory": "/home/berrym/Lab/libbst-v0.1.0/build",
+    "command": "cc -Isrc/libbst.so.p -Isrc -I../src -Iinclude -I../include -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -g -fPIC -MD -MQ src/libbst.so.p/errors.c.o -MF src/libbst.so.p/errors.c.o.d -o src/libbst.so.p/errors.c.o -c ../src/errors.c",
+    "file": "../src/errors.c",
+    "output": "src/libbst.so.p/errors.c.o"
+  },
+  {
+    "directory": "/home/berrym/Lab/libbst-v0.1.0/build",
+    "command": "cc -Isrc/libbst.so.p -Isrc -I../src -Iinclude -I../include -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -g -fPIC -MD -MQ src/libbst.so.p/bst.c.o -MF src/libbst.so.p/bst.c.o.d -o src/libbst.so.p/bst.c.o -c ../src/bst.c",
+    "file": "../src/bst.c",
+    "output": "src/libbst.so.p/bst.c.o"
+  },
+  {
+    "directory": "/home/berrym/Lab/libbst-v0.1.0/build",
+    "command": "cc -Itest/demo_1_int.p -Itest -I../test -Iinclude -I../include -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -g -MD -MQ test/demo_1_int.p/demo_1_int.c.o -MF test/demo_1_int.p/demo_1_int.c.o.d -o test/demo_1_int.p/demo_1_int.c.o -c ../test/demo_1_int.c",
+    "file": "../test/demo_1_int.c",
+    "output": "test/demo_1_int.p/demo_1_int.c.o"
+  },
+  {
+    "directory": "/home/berrym/Lab/libbst-v0.1.0/build",
+    "command": "cc -Itest/demo_2_string.p -Itest -I../test -Iinclude -I../include -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -g -MD -MQ test/demo_2_string.p/demo_2_string.c.o -MF test/demo_2_string.p/demo_2_string.c.o.d -o test/demo_2_string.p/demo_2_string.c.o -c ../test/demo_2_string.c",
+    "file": "../test/demo_2_string.c",
+    "output": "test/demo_2_string.p/demo_2_string.c.o"
+  }
+]

@@ -1,0 +1,77 @@
+Build started at 2020-08-17T03:30:40.770642
+Main binary: /usr/bin/python3
+Build Options: 
+Python system: Linux
+The Meson build system
+Version: 0.55.0
+Source dir: /home/berrym/Lab/libbst-v0.1.0
+Build dir: /home/berrym/Lab/libbst-v0.1.0/build
+Build type: native build
+None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
+None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
+Project name: libbst
+Project version: 0.1.0
+None of 'CC' are defined in the environment, not changing global flags.
+None of 'CFLAGS' are defined in the environment, not changing global flags.
+None of 'LDFLAGS' are defined in the environment, not changing global flags.
+None of 'CPPFLAGS' are defined in the environment, not changing global flags.
+None of 'CC_LD' are defined in the environment, not changing global flags.
+Sanity testing C compiler: cc
+Is cross compiler: False.
+None of 'CC_LD' are defined in the environment, not changing global flags.
+Sanity check compiler command line: cc /home/berrym/Lab/libbst-v0.1.0/build/meson-private/sanitycheckc.c -o /home/berrym/Lab/libbst-v0.1.0/build/meson-private/sanitycheckc.exe -pipe -D_FILE_OFFSET_BITS=64
+Sanity check compile stdout:
+
+-----
+Sanity check compile stderr:
+
+-----
+Running test binary command: /home/berrym/Lab/libbst-v0.1.0/build/meson-private/sanitycheckc.exe
+C compiler for the build machine: cc (gcc 10.2.1 "cc (GCC) 10.2.1 20200723 (Red Hat 10.2.1-1)")
+C linker for the build machine: cc ld.bfd 2.34-4
+None of 'AR' are defined in the environment, not changing global flags.
+None of 'CC' are defined in the environment, not changing global flags.
+None of 'CFLAGS' are defined in the environment, not changing global flags.
+None of 'LDFLAGS' are defined in the environment, not changing global flags.
+None of 'CPPFLAGS' are defined in the environment, not changing global flags.
+None of 'CC_LD' are defined in the environment, not changing global flags.
+Sanity testing C compiler: cc
+Is cross compiler: False.
+None of 'CC_LD' are defined in the environment, not changing global flags.
+Sanity check compiler command line: cc /home/berrym/Lab/libbst-v0.1.0/build/meson-private/sanitycheckc.c -o /home/berrym/Lab/libbst-v0.1.0/build/meson-private/sanitycheckc.exe -pipe -D_FILE_OFFSET_BITS=64
+Sanity check compile stdout:
+
+-----
+Sanity check compile stderr:
+
+-----
+Running test binary command: /home/berrym/Lab/libbst-v0.1.0/build/meson-private/sanitycheckc.exe
+C compiler for the host machine: cc (gcc 10.2.1 "cc (GCC) 10.2.1 20200723 (Red Hat 10.2.1-1)")
+C linker for the host machine: cc ld.bfd 2.34-4
+None of 'AR' are defined in the environment, not changing global flags.
+Build machine cpu family: x86_64
+Build machine cpu: x86_64
+Host machine cpu family: x86_64
+Host machine cpu: x86_64
+Target machine cpu family: x86_64
+Target machine cpu: x86_64
+Adding test "libbst"
+Adding test "libbst"
+Build targets in project: 3
+
+Found ninja-1.10.0 at /usr/bin/ninja
+Running compile:
+Working directory:  /home/berrym/Lab/libbst-v0.1.0/build/meson-private/tmpp6_sk19i
+Command line:  cc /home/berrym/Lab/libbst-v0.1.0/build/meson-private/tmpp6_sk19i/testfile.c -o /home/berrym/Lab/libbst-v0.1.0/build/meson-private/tmpp6_sk19i/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 --print-search-dirs 
+
+Code:
+ 
+Compiler stdout:
+ install: /usr/lib/gcc/x86_64-redhat-linux/10/
+programs: =/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/10/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../../x86_64-redhat-linux/bin/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../../x86_64-redhat-linux/bin/
+libraries: =/usr/lib/gcc/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../../x86_64-redhat-linux/lib/x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../../x86_64-redhat-linux/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../x86_64-redhat-linux/10/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../../lib64/:/lib/x86_64-redhat-linux/10/:/lib/../lib64/:/usr/lib/x86_64-redhat-linux/10/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../../x86_64-redhat-linux/lib/:/usr/lib/gcc/x86_64-redhat-linux/10/../../../:/lib/:/usr/lib/
+
+Compiler stderr:
+ 
+None of 'STRIP' are defined in the environment, not changing global flags.
+None of 'STRIP' are defined in the environment, not changing global flags.
