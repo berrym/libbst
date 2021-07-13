@@ -25,7 +25,7 @@ The demos can be found and executed from the build directory, e.g.
 
 ## Authors
 
-Copyright 2020
+Copyright 2021
 Michael Berry <trismegustis@gmail.com>
 
 ## License

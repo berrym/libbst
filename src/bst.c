@@ -1,5 +1,5 @@
 /**
- * bst.c - Binary search tree routines for libbst.
+ * bst.c - Binary search tree routines.
  *
  * Copyright (c) 2021 Michael Berry
  *
