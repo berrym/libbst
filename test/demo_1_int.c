@@ -19,16 +19,25 @@ void int_bst_test()
     size_t size = sizeof(int);
     size_t limit = 7;
     size_t i;
-    intptr_t initial_tree_values[] = { 50, 30, 20, 40, 70, 60, 80 };
+    int initial_tree_values[] = { 50, 30, 20, 40, 70, 60, 80 };
     bst_node *root = NULL;
 
     for (i = 0; i < limit; i++) {
-        printf("Inserting into tree value: %ld\n", initial_tree_values[i]);
+        printf("Inserting into tree value: %d\n", initial_tree_values[i]);
         root = bst_insert(root,
                           size,
                           (int *)initial_tree_values[i],
                           compare_int);
     }
+
+    printf("\nChecking if tree is a bst: ");
+    if (bst_is_bst(root, compare_int))
+        printf("Yes.\n");
+    else
+        printf("No.\n");
+
+    printf("Deleting value 50\n");
+    root = bst_remove_node(root, (int *)50, compare_int, NULL);
 
     printf("\nChecking if tree is a bst: ");
     if (bst_is_bst(root, compare_int))

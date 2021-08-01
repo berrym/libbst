@@ -85,41 +85,72 @@ bst_node *bst_insert(bst_node *node, size_t size, void *data, comparator cmp)
  *             the case of a node with zero or one children, or
  *             by handling the case where the node has two children.
  */
-bst_node *bst_remove_node(bst_node *root, void *data,
+bst_node* bst_remove_node(bst_node* root, void *data,
                           comparator cmp, free_func freefn)
 {
-    if (!root)
+    bst_node *curr = root;
+    bst_node *prev = NULL;
+
+    // Find the node to be delivered, prev is it's parent
+    while (curr && cmp(curr->data, &data) != EQUAL) {
+        prev = curr;
+        if (cmp(&data, curr->data) == LESS)
+            curr = curr->left;
+        else
+            curr = curr->right;
+    }
+
+    if (!curr)
         return root;
 
-    if (cmp(&data, root->data) == LESS) {
-        root->left = bst_remove_node(root->left, data, cmp, freefn);
-    } else if (cmp(&data, root->data) == GREATER) {
-        root->right = bst_remove_node(root->right, data, cmp, freefn);
-    } else {
-        if (!root->left) {
-            bst_node *temp = root->right;
-            if (freefn)
-                freefn(root->data);
-            free(root->data);
-            root->data = NULL;
-            free(root);
-            root = NULL;
-            return temp;
-        } else if (!root->right) {
-            bst_node *temp = root->left;
-            if (freefn)
-                freefn(root->data);
-            free(root->data);
-            root->data = NULL;
-            free(root);
-            root = NULL;
-            return temp;
+    // Node to be removed has one child
+    if (!curr->left || !curr->right) {
+        bst_node *new_curr;
+
+        if (!curr->left)
+            new_curr = curr->right;
+        else
+            new_curr = curr->left;
+
+        // Node to be removed is root
+        if (!prev)
+            return new_curr;
+
+        // Replace parent node's left or right child
+        if (curr == prev->left)
+            prev->left = new_curr;
+        else
+            prev->right = new_curr;
+
+        // Free memory of node to be removed
+        if (freefn)
+            freefn(curr->data);
+        else
+            free(curr->data);
+        free(curr);
+    } else {                    // Node has two or more children
+        bst_node *p = NULL;     // Parent node
+        bst_node *temp = NULL;
+
+        // Compute the inorder successor
+        temp = curr->right;
+        while (temp->left) {
+            p = temp;
+            temp = temp->left;
         }
 
-        bst_node *temp = bst_min_value_node(root->right);
-        root->data = temp->data;
+        if (p)
+            p->left = temp->right;
+        else
+            curr->right = temp->right;
 
-        root->right = bst_remove_node(root->right, temp->data, cmp, freefn);
+        // Free memory of the node to be removed
+        memcpy(curr->data, temp->data, sizeof(*temp->data));
+        if (freefn)
+            freefn(temp->data);
+        else
+            free(temp->data);
+        free(temp);
     }
 
     return root;
