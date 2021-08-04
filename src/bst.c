@@ -28,6 +28,8 @@
 #include "bst.h"
 #include "errors.h"
 
+#define max(a, b) (a > b) ? a : b
+
 /**
  * bst_new_node:
  *      Allocate a new bst_node on the heap and return it.
@@ -44,14 +46,66 @@ bst_node *bst_new_node(size_t size, void *data)
     memcpy(node->data, &data, size);
     node->left = node->right = NULL;
 
+    node->height = 1;           // initialize as a leaf node
+
     return node;
+}
+
+/**
+ * Rotate a bst to the left.
+ */
+bst_node *bst_rotate_left(bst_node *x)
+{
+    bst_node *y = x->right;
+    bst_node *t2 = y->left;
+
+    // Perform rotation
+    y->left = x;
+    x->right = t2;
+
+    // Update heights
+    x->height = max(bst_height(x->left), bst_height(x->right)) + 1;
+    y->height = max(bst_height(y->left), bst_height(y->right)) + 1;
+
+    return y;
+}
+
+/**
+ * Rotate a bst to the right.
+ */
+bst_node *bst_rotate_right(bst_node *y)
+{
+    bst_node *x = y->left;
+    bst_node *t2 = x->right;
+
+    // Perform rotation
+    x->right = y;
+    y->left = t2;
+
+    // Update heights
+    y->height = max(bst_height(y->left), bst_height(y->right)) + 1;
+    x->height = max(bst_height(x->left), bst_height(x->right)) + 1;
+
+    return x;
+}
+
+/**
+ * bst_get_balance:
+ *     Get the balance factor of a bst.
+ */
+int bst_get_balance(bst_node *root)
+{
+    if (!root)
+        return 0;
+
+    return bst_height(root->left) - bst_height(root->right);
 }
 
 /**
  * bst_insert:
  *      Insert a bst_node with a data value into a bst.
  *
- *      Cases:
+ *      Cases for normal insertion:
  *          1) If the tree is empty return a new node.
  *          2) Otherwise recur down the tree until an empty node is found
  *             and insert the new node there.
@@ -62,10 +116,41 @@ bst_node *bst_insert(bst_node *node, size_t size, void *data, comparator cmp)
     if (!node)
         return bst_new_node(size, data);
 
+    // Perform normal insertion
     if (cmp(&data, node->data) == LESSER)
         node->left = bst_insert(node->left, size, data, cmp);
     else if (cmp(&data, node->data) == GREATER)
         node->right = bst_insert(node->right, size, data, cmp);
+    else
+        return node;
+
+    // Update height of ancestor node
+    node->height = max(bst_height(node->left), bst_height(node->right)) + 1;
+
+    // Get the balance factor of this ancestor node
+    int balance = bst_get_balance(node);
+
+    // There are 4 cases if the bst is unbalanced
+
+    // Left Left Case
+    if (balance > 1 && cmp(&data, node->left->data) == LESSER)
+        return bst_rotate_right(node);
+
+    // Right Right Case
+    if (balance < -1 && cmp(&data, node->right->data) == GREATER)
+        return bst_rotate_left(node);
+
+    // Left Right Case
+    if (balance > 1 && cmp(&data, node->left->data) == GREATER) {
+        node->left = bst_rotate_left(node->left);
+        return bst_rotate_right(node);
+    }
+
+    // Right Left Case
+    if (balance < -1 && cmp(&data, node->right->data) == LESSER) {
+        node->right = bst_rotate_right(node->right);
+        return bst_rotate_left(node);
+    }
 
     return node;
 }
@@ -174,6 +259,18 @@ bst_node* bst_lookup(bst_node *root, void *data, comparator cmp)
         return bst_lookup(root->left, data, cmp);
 
     return bst_lookup(root->right, data, cmp);
+}
+
+/**
+ * bst_height:
+ *      Get the height of a tree.
+ */
+size_t bst_height(bst_node *root)
+{
+    if (!root)
+        return 0;
+
+    return root->height;
 }
 
 /**

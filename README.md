@@ -2,7 +2,7 @@
 
 ## Description
 
-A simple library for binary search trees written in C. Some demo programs are provided to show the library in use.
+A simple library for AVL binary search trees written in C. Some demo programs are provided to show the library in use.
 
 ## Getting Started
 
@@ -10,7 +10,7 @@ Install meson and ninja build system
 
 Clone the git repository:
 
-* git clone <https://github.com/berrym/ltypes.git>
+* git clone <https://github.com/berrym/bst.git>
 
 Build:
 
