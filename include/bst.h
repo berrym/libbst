@@ -30,7 +30,7 @@
 
 // Enum for comparison functions
 typedef enum result {
-    LESS = -1,
+    LESSER = -1,
     EQUAL = 0,
     GREATER = 1
 } result;

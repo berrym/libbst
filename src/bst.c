@@ -62,7 +62,7 @@ bst_node *bst_insert(bst_node *node, size_t size, void *data, comparator cmp)
     if (!node)
         return bst_new_node(size, data);
 
-    if (cmp(&data, node->data) == LESS)
+    if (cmp(&data, node->data) == LESSER)
         node->left = bst_insert(node->left, size, data, cmp);
     else if (cmp(&data, node->data) == GREATER)
         node->right = bst_insert(node->right, size, data, cmp);
@@ -94,7 +94,7 @@ bst_node* bst_remove_node(bst_node* root, void *data,
     // Find the node to be delivered, prev is it's parent
     while (curr && cmp(curr->data, &data) != EQUAL) {
         prev = curr;
-        if (cmp(&data, curr->data) == LESS)
+        if (cmp(&data, curr->data) == LESSER)
             curr = curr->left;
         else
             curr = curr->right;
@@ -170,7 +170,7 @@ bst_node* bst_lookup(bst_node *root, void *data, comparator cmp)
     if (!root || cmp(&data, root->data) == EQUAL)
        return root;
 
-    if (cmp(&data, root->data) == LESS)
+    if (cmp(&data, root->data) == LESSER)
         return bst_lookup(root->left, data, cmp);
 
     return bst_lookup(root->right, data, cmp);
@@ -222,7 +222,8 @@ void bst_delete_tree(bst_node *root, free_func freefn, display_func display)
         display(root->data);
     if (freefn)
         freefn(root->data);
-    free(root->data);
+    else
+        free(root->data);
     root->data = NULL;
     free(root);
     root = NULL;
@@ -327,7 +328,7 @@ void bst_traverse_preorder(bst_node * node, display_func display)
 /**
  * compare_int:
  *      Compare two interger values for equality.
- *      Result is LESS for a < b, EQUAL for a == b, GREATER for a > b.
+ *      Result is LESSER for a < b, EQUAL for a == b, GREATER for a > b.
  */
 result compare_int(const void *a, const void *b)
 {
@@ -356,14 +357,14 @@ void print_rm_int(void *data)
 /**
  * compare_str:
  *      Compare two strings for equality.
- *      Result is LESS for a < b, EQUAL for a == b, GREATER for a > b
+ *      Result is LESSER for a < b, EQUAL for a == b, GREATER for a > b
  */
 result compare_str(const void *a, const void *b)
 {
     const char *ca = *(const char **)a;
     const char *cb = *(const char **)b;
 
-    if (strcmp(ca, cb) < 0) return LESS;
+    if (strcmp(ca, cb) < 0) return LESSER;
     else if (strcmp(ca, cb) > 0) return GREATER;
 
     return EQUAL;
