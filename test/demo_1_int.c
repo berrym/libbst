@@ -51,6 +51,8 @@ void int_bst_test()
     bst_traverse_postorder(root, print_int);
     printf("\n\npreorder traversal:\n");
     bst_traverse_preorder(root, print_int);
+    printf("\n\nlevel order:\n");
+    bst_print_level_order(root, print_int);
     printf("\n\n");
     fflush(stdout);
 

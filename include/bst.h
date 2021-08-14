@@ -69,6 +69,8 @@ bool bst_is_bst(bst_node *, comparator);
 void bst_traverse_inorder(bst_node *, display_func);
 void bst_traverse_postorder(bst_node *, display_func);
 void bst_traverse_preorder(bst_node *, display_func);
+void bst_print_current_level(bst_node *, size_t, display_func);
+void bst_print_level_order(bst_node *, display_func);
 
 // Int specific functions
 result compare_int(const void *, const void *);

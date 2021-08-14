@@ -160,6 +160,7 @@ bst_node *bst_insert(bst_node *node, size_t size, void *data, comparator cmp)
  *      Given a bst and a data value, remove the node containing data
  *      and return the new root.
  *
+ *      Step 1)
  *      Cases:
  *          1) Base case, if the root node is empty, return it.
  *          2) If the data to removed is smaller than the root,
@@ -169,6 +170,12 @@ bst_node *bst_insert(bst_node *node, size_t size, void *data, comparator cmp)
  *          4) Data is equal to the root, remove this node by handling
  *             the case of a node with zero or one children, or
  *             by handling the case where the node has two children.
+ *       Step 2)
+ *          Update the root height.
+ *       Step 3)
+ *          Get the tree's balance factor.
+ *       Step 4)
+ *          Fix any imbalance in the tree.
  */
 bst_node* bst_remove_node(bst_node* root, void *data,
                           comparator cmp, free_func freefn)
@@ -236,6 +243,32 @@ bst_node* bst_remove_node(bst_node* root, void *data,
         else
             free(temp->data);
         free(temp);
+    }
+
+    // Update the node height
+    root->height = max(bst_height(root->left), bst_height(root->right)) + 1;
+
+    // Get the balance factor
+    int balance = bst_get_balance(root);
+
+    // Left Left Case
+    if (balance > 1 && bst_get_balance(root->left) >= 0)
+        return bst_rotate_right(root);
+
+    // Left Right Case
+    if (balance > 1 && bst_get_balance(root->left) < 0) {
+        root->left = bst_rotate_left(root->left);
+        return bst_rotate_right(root);
+    }
+
+    // Right Right Case
+    if (balance < -1 && bst_get_balance(root->right) <= 0)
+        return bst_rotate_left(root);
+
+    // Right Left Case
+    if (balance < -1 && bst_get_balance(root->right) > 0) {
+        root->right = bst_rotate_right(root->right);
+        return bst_rotate_left(root);
     }
 
     return root;
@@ -412,7 +445,7 @@ void bst_traverse_postorder(bst_node *node, display_func display)
  * bst_traverse_preorder:
  *      Traverse a bst preorder and print out the data in each node.
  */
-void bst_traverse_preorder(bst_node * node, display_func display)
+void bst_traverse_preorder(bst_node *node, display_func display)
 {
     if (!node)
         return;
@@ -420,6 +453,35 @@ void bst_traverse_preorder(bst_node * node, display_func display)
     display(node->data);
     bst_traverse_preorder(node->left, display);
     bst_traverse_preorder(node->right, display);
+}
+
+/**
+ * bst_print_current_level:
+ *      Print nodes at a current level.
+ */
+void bst_print_current_level(bst_node *root, size_t level, display_func display)
+{
+    if (!root)
+        return;
+
+    if (level == 1) {
+        display(root->data);
+    } else if (level > 1) {
+        bst_print_current_level(root->left, level - 1, display);
+        bst_print_current_level(root->right, level - 1, display);
+    }
+}
+
+/**
+ * bst_print_level_order:
+ *      Print level order of a bst.
+ */
+void bst_print_level_order(bst_node *root, display_func display)
+{
+    size_t h = bst_max_depth(root);
+
+    for (size_t i = 1; i <= h; i++)
+        bst_print_current_level(root, i, display);
 }
 
 /**
