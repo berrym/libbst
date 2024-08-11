@@ -2,7 +2,7 @@ project(
   'libbst',
   'c',
   default_options: ['c_std=c99', 'optimization=3', 'warning_level=2'],
-  version: '0.1.1',
+  version: '0.1.2',
   license: 'MIT',
 )
 
@@ -14,4 +14,5 @@ inc = include_directories('include')
 
 subdir('include')
 subdir('src')
-subdir('test')
+subdir('tests')
+subdir('demos')

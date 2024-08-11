@@ -1,4 +1,4 @@
-/** demo_3_fibonacci.c - Demo of using libbst binary trees with integers.
+/** test_bst_int.c - Demo of using libbst binary trees with integers.
 
 Copyright (c) 2024 Michael Berry
 
@@ -22,7 +22,6 @@ SOFTWARE.
 */
 
 #include "../include/bst.h"
-#include "../include/errors.h"
 
 #include <signal.h>
 #include <stdint.h>

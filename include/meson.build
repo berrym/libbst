@@ -1,1 +1,1 @@
-install_headers('errors.h', 'bst.h')
+install_headers('bst.h')

@@ -1,5 +1,5 @@
 #
-# spec file for package libbst-devel
+# spec file for library libbst-devel
 #
 # Copyright (c) 2024 Michael Berry <trismegustis@gmail.com>
 #
@@ -39,7 +39,7 @@ A generically typed C library for creating self balancing AVL Binary Trees.
 %files
 %defattr(-,root,root,-)
 %doc README.md
-%{_libdir}/liblibbst.so
+%{_libdir}/libbst.so
 %{_includedir}/bst.h
 %{_includedir}/errors.h
 

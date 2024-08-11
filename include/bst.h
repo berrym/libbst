@@ -1,7 +1,7 @@
 /**
  * bst.h - Header file for libbst.
  *
- * Copyright (c) 2021 Michael Berry
+ * Copyright (c) 2024 Michael Berry
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -78,4 +78,18 @@ result compare_str(const void *, const void *);
 void print_str(void *);
 void print_rm_str(void *);
 
+// Error handling routines
+
+#ifndef ERRORS_HANDLERS
+#define ERRORS_HANDLERS
+
+extern void error_return(const char *, ...);
+extern void error_syscall(const char *, ...);
+extern void error_message(const char *, ...);
+extern void error_quit(const char *, ...);
+extern void error_abort(const char *, ...);
+extern void sig_int(int);
+extern void sig_seg(int);
+
+#endif
 #endif

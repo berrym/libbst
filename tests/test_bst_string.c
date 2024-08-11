@@ -1,4 +1,4 @@
-/** demo_2_string.c - Demo of using libbst binary trees with strings.
+/** test_2_string.c - Test of using libbst binary search trees with strings.
 
 Copyright (c) 2024 Michael Berry
 
@@ -22,7 +22,6 @@ SOFTWARE.
 */
 
 #include "../include/bst.h"
-#include "../include/errors.h"
 
 #include <signal.h>
 #include <stdio.h>

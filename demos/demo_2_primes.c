@@ -22,7 +22,6 @@ SOFTWARE.
 */
 
 #include "../include/bst.h"
-#include "../include/errors.h"
 
 #include <errno.h>
 #include <limits.h>
