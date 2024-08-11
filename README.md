@@ -10,22 +10,22 @@ Install meson and ninja build system
 
 Clone the git repository:
 
-* git clone <https://github.com/berrym/bst.git>
+* git clone https://github.com/berrym/bst.git
 
 Build:
 
-* meson build
-* ninja -C build
+* meson setup builddir
+* meson -C builddir
 
 ## Executing program
 
 The demos can be found and executed from the build directory, e.g.
 
-* build/test/demo_name
+* builddir/test/demo_name
 
 ## Authors
 
-Copyright 2021
+Copyright 2024
 Michael Berry <trismegustis@gmail.com>
 
 ## License

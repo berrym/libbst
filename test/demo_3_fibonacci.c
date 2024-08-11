@@ -1,6 +1,7 @@
-/** demo_3_fibonacci.c - Demo of an abritary length Fibonacci series.
+/** demo_3_fibonacci.c - Demo of using libbst binary trees with Fibonacci
+series.
 
-Copyright (c) 2021 Michael Berry
+Copyright (c) 2024 Michael Berry
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,15 +22,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
+#include "../include/bst.h"
+#include "../include/errors.h"
+
 #include <errno.h>
 #include <limits.h>
 #include <signal.h>
-#include "bst.h"
-#include "errors.h"
+#include <stddef.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 
+ssize_t getline(char **restrict lineptr, size_t *restrict n,
+                FILE *restrict stream);
 void fib_to_limit(size_t);
 
 #define MAXGEN 30
@@ -38,8 +43,8 @@ void fib_to_limit(size_t);
  * main:
  *      Main function, program entry point.
  */
-int main(int argc, char **argv)
-{
+int main(int argc __attribute__((unused)),
+         char **argv __attribute__((unused))) {
     char *line = NULL, *endptr = NULL;
     size_t len;
     ssize_t nread;
@@ -48,15 +53,18 @@ int main(int argc, char **argv)
     signal(SIGINT, sig_int);
     signal(SIGSEGV, sig_seg);
 
-    printf("Fibonacci Sequence\nHow many numbers do you want? %d is max: ", MAXGEN);
-    if ((nread = getline(&line, &len, stdin)) == -1)
+    printf("Fibonacci Sequence\nHow many numbers do you want? %d is max: ",
+           MAXGEN);
+    if ((nread = getline(&line, &len, stdin)) == -1) {
         error_syscall("getline failed");
+    }
 
     errno = 0;
     size_t n = strtol(line, &endptr, 10);
 
-    if (errno != 0)
+    if (errno != 0) {
         error_syscall("strtol failed");
+    }
 
     if (line == endptr) {
         fprintf(stderr, "No digitis were found\n\n");
@@ -79,8 +87,7 @@ int main(int argc, char **argv)
  * fib_to_limit:
  *      Calculate the Fibonacci series up to limit.
  */
-void fib_to_limit(size_t limit)
-{
+void fib_to_limit(size_t limit) {
     bst_node *fibs = NULL;
     intptr_t a, b, c;
 

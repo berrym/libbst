@@ -1,6 +1,6 @@
-/** demo_4_primes.c - Demo calculating prime numbers.
+/** demo_4_primes.c - Demo using libbst binary trees calculating prime numbers.
 
-Copyright (c) 2021 Michael Berry
+Copyright (c) 2024 Michael Berry
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,25 +21,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
+#include "../include/bst.h"
+#include "../include/errors.h"
+
 #include <errno.h>
 #include <limits.h>
 #include <signal.h>
-#include "bst.h"
-#include "errors.h"
+#include <stddef.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define MAXGEN 100
 
+ssize_t getline(char **restrict lineptr, size_t *restrict n,
+                FILE *restrict stream);
 void primes_to_limit(size_t);
 
 /**
  * main:
  *      Main function, program entry point.
  */
-int main(int argc, char **argv)
-{
+int main(int argc __attribute__((unused)),
+         char **argv __attribute__((unused))) {
     char *line = NULL, *endptr = NULL;
     size_t len;
     ssize_t nread;
@@ -49,14 +53,16 @@ int main(int argc, char **argv)
     signal(SIGSEGV, sig_seg);
 
     printf("Prime Numbers\nHow many numbers do you want? %d is max: ", MAXGEN);
-    if ((nread = getline(&line, &len, stdin)) == -1)
+    if ((nread = getline(&line, &len, stdin)) == -1) {
         error_syscall("getline failed");
+    }
 
     errno = 0;
     size_t n = strtol(line, &endptr, 10);
 
-    if (errno != 0)
+    if (errno != 0) {
         error_syscall("strtol failed");
+    }
 
     if (line == endptr) {
         fprintf(stderr, "No digitis were found\n\n");
@@ -79,17 +85,18 @@ int main(int argc, char **argv)
  * primes_to_limit:
  *      Calculate prime numbers up to limit.
  */
-void primes_to_limit(size_t limit)
-{
+void primes_to_limit(size_t limit) {
     bst_node *primes = NULL;
 
     intptr_t p = 3, c;
 
-    for (size_t count = 2 ; count <= limit ;  ) {
-        for (c = 2 ; c <= p - 1 ; c++)
-            if (p % c == 0 )
+    for (size_t count = 2; count <= limit;) {
+        for (c = 2; c <= p - 1; c++) {
+            if (p % c == 0) {
                 break;
-        
+            }
+        }
+
         if (c == p) {
             primes = bst_insert(primes, sizeof(int), (int *)p, compare_int);
             count++;

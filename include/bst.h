@@ -10,8 +10,8 @@
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -25,15 +25,11 @@
 #ifndef BST_H
 #define BST_H
 
-#include <stddef.h>             // for size_t
-#include <stdbool.h>            // for bool type
+#include <stdbool.h> // for bool type
+#include <stddef.h>  // for size_t
 
 // Enum for comparison functions
-typedef enum result {
-    LESSER = -1,
-    EQUAL = 0,
-    GREATER = 1
-} result;
+typedef enum result { LESSER = -1, EQUAL = 0, GREATER = 1 } result;
 
 // Node comparison function definition
 typedef result (*comparator)(const void *, const void *);
@@ -58,7 +54,7 @@ bst_node *bst_rotate_left(bst_node *);
 bst_node *bst_rotate_right(bst_node *);
 bst_node *bst_insert(bst_node *, size_t, void *, comparator);
 bst_node *bst_remove_node(bst_node *, void *, comparator, free_func);
-bst_node* bst_lookup(bst_node *, void *, comparator);
+bst_node *bst_lookup(bst_node *, void *, comparator);
 size_t bst_height(bst_node *);
 size_t bst_size(bst_node *);
 size_t bst_max_depth(bst_node *);
