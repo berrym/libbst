@@ -1,4 +1,4 @@
-/** demo_4_primes.c - Demo using libbst binary trees calculating prime numbers.
+/** demo_2_primes.c - Demo using libbst binary trees calculating prime numbers.
 
 Copyright (c) 2024 Michael Berry
 

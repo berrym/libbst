@@ -1,5 +1,4 @@
-/** demo_3_fibonacci.c - Demo of using libbst binary trees with Fibonacci
-series.
+/** demo_1_fibonacci.c - Demo of using libbst with the Fibonacci numbers.
 
 Copyright (c) 2024 Michael Berry
 

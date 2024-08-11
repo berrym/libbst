@@ -11,7 +11,7 @@ Release:        1
 License:        MIT
 Summary:        Generically typed C library for creating self balanced binary trees
 Url:            https://github.com/berrym/bst
-Source:         https://github.com/berrym/release/libbst-devel-%{version}.tar.gz
+Source:         https://github.com/berrym/release/libbst-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  meson
 Requires:       glibc
@@ -20,7 +20,7 @@ Requires:       glibc
 A generically typed C library for creating self balancing AVL Binary Trees.
 
 %prep
-%setup -q -n libbst-devel
+%setup -q -n libbst
 
 %build
 %meson
@@ -39,7 +39,7 @@ A generically typed C library for creating self balancing AVL Binary Trees.
 %files
 %defattr(-,root,root,-)
 %doc README.md
-%{_libdir}/libbst.so
+%{_libdir}/liblibbst.so
 %{_includedir}/bst.h
 %{_includedir}/errors.h
 
