@@ -1,4 +1,4 @@
-# Binary Search Trees
+# libbst
 
 ## Description
 
@@ -10,7 +10,7 @@ Install meson and ninja build system
 
 Clone the git repository:
 
-* git clone https://github.com/berrym/bst.git
+* git clone https://github.com/berrym/libbst.git
 
 Build:
 
