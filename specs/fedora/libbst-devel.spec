@@ -6,7 +6,7 @@
 
 
 Name:           libbst-devel
-Version:        0.1.1
+Version:        0.1.2
 Release:        1
 License:        MIT
 Summary:        Generically typed C library for creating self balanced binary trees
@@ -41,8 +41,13 @@ A generically typed C library for creating self balancing AVL Binary Trees.
 %doc README.md
 %{_libdir}/libbst.so
 %{_includedir}/bst.h
-%{_includedir}/errors.h
 
 %changelog
+* Wed Aug 14 2024 Michael Berry <trismegustis@gmail.com> - 0.1.2-1
+- Rebuild
+
+* Sun Aug 11 2024 Michael Berry <trismegustis@gmail.com> - 0.1.1-2
+- Refactored for easy rpm development on Fedora
+
 * Sun Aug 11 2024 Michael Berry <trismegustis@gmail.com> - 0.1.1-1
 - rebuilt
